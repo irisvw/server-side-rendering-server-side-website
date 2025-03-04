@@ -11,22 +11,29 @@
   </form>
 
   <button>Animal</button>
+
   <button>Season</button>
+  <ul class="options">
   {% for season in seasons %}
-    <a href="/filter?season={{ season.id }}">{{ season.season }}</a>
+    <li><a href="/filter?season={{ season.id }}">{{ season.season }}</a></li>
   {% endfor %}
+  </ul>
 
   <button>Language</button>
+  <ul class="options">
   {% for language in languages %}
-    <a href="/filter?language={{ language.id }}">{{ language.language }}</a>
+    <li><a href="/filter?language={{ language.id }}">{{ language.language }}</a></li>
   {% endfor %}
+  </ul>
 
   <button>Sorting</button>
-  <a href="">Alphabetical</a>
-  <a href="">Playtime</a>
+  <ul class="options">
+    <li><a href="/sort=alphabetical">Alphabetical</a></li>
+    <li><a href="/sort=playtime">Playtime</a></li>
+  </ul>
 </nav>
 
-<ul>
+<ul class="stories">
   {% for story in stories %}
   <li>
     <h2>{{ story.title }}</h2>

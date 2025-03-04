@@ -62,18 +62,46 @@ app.get('/filter', async function (request, response) {
 
   if (season) {
     stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[season][_eq]=" + season);
-    console.log('season:');
-    console.log(season);
   } else if (language) {
     stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[language][_eq]=" + language);
-    console.log('season:');
-    console.log(season);
-    console.log('language:');
-    console.log(language);
   } else {
-    console.log('neither were truthy');
     stories = await fetch("https://fdnd-agency.directus.app/items/tm_story");
   }
+
+  // let stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[season][_eq]=" + season + "&[language][_eq]=" + language);
+  let seasons = await fetch("https://fdnd-agency.directus.app/items/tm_season");
+  let languages = await fetch("https://fdnd-agency.directus.app/items/tm_language");
+  let animals = await fetch("https://fdnd-agency.directus.app/items/tm_animal");
+
+  let storiesJSON = await stories.json();
+  let seasonsJSON = await seasons.json();
+  let languagesJSON = await languages.json();
+  let animalsJSON = await animals.json();
+
+  response.render('index.liquid', {
+    stories: storiesJSON.data,
+    seasons: seasonsJSON.data,
+    languages: languagesJSON.data,
+    animas: animalsJSON.data
+  })
+})
+
+app.get('/sort=:filter', async function (request, response) {
+  let filter = request.params.filter;
+  let stories;
+
+  if (filter == "alphabetical") {
+    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=title");
+  } else if (filter == "playtime") {
+    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=playtime");
+  }
+  // if (season) {
+  //   stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[season][_eq]=" + season);
+  // } else if (language) {
+  //   stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[language][_eq]=" + language);
+  // } else {
+  //   stories = await fetch("https://fdnd-agency.directus.app/items/tm_story");
+  // }
 
   // let stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[season][_eq]=" + season + "&[language][_eq]=" + language);
   let seasons = await fetch("https://fdnd-agency.directus.app/items/tm_season");
