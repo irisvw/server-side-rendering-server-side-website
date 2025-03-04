@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 1rem;
+  font-family: poppins;
+  background-color: #451870;
+}
+
+h1 {
+  color: white;
+}
+
+li {
+  list-style: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: .5em;
+  margin: .5em;
+  background-color: white;
+}
