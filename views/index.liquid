@@ -1,1 +1,14 @@
-Succes!
+{% render 'partials/head.liquid'
+  , title: 'Stories' %}
+
+<h1>All stories</h1>
+<ul>
+{% for story in stories %}
+<li>
+  <h2>{{ story.title }}</h2>
+  <p>{{ story.summary }}</p>
+</li>
+{% endfor %}
+</ul>
+
+{% render 'partials/foot.liquid' %}
