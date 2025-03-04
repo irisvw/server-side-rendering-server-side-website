@@ -2,13 +2,47 @@
   , title: 'Stories' %}
 
 <h1>All stories</h1>
+
+<nav>
+  <form role="search">
+    <input type="search" role="searchbox" id="search" />
+    <label for="search">Search for stories</label>
+    <button>Submit search</button>
+  </form>
+
+  <button>Animal</button>
+  <button>Season</button>
+  {% for season in seasons %}
+    <a href="/filter?season={{ season.id }}">{{ season.season }}</a>
+  {% endfor %}
+
+  <button>Language</button>
+  {% for language in languages %}
+    <a href="/filter?language={{ language.id }}">{{ language.language }}</a>
+  {% endfor %}
+
+  <button>Sorting</button>
+  <a href="">Alphabetical</a>
+  <a href="">Playtime</a>
+</nav>
+
 <ul>
-{% for story in stories %}
-<li>
-  <h2>{{ story.title }}</h2>
-  <p>{{ story.summary }}</p>
-</li>
-{% endfor %}
+  {% for story in stories %}
+  <li>
+    <h2>{{ story.title }}</h2>
+    <p>Summary: {{ story.summary }}</p>
+    <p>Season: {{ story.season }}</p>
+    <p>Playtime: {{ story.playtime }} </p>
+    <p>Animal: {{ story.animal }} </p>
+
+    {% assign language = languages | find: "id", story.language %}
+    <p>Language: {{ language.language }}</p>
+
+    {% assign season = seasons | find: "id", story.season %}
+    <p>Season: {{ season.season }}</p>
+
+  </li>
+  {% endfor %}
 </ul>
 
 {% render 'partials/foot.liquid' %}
