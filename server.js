@@ -5,7 +5,6 @@ import express from 'express'
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
 
-
 console.log('Hieronder moet je waarschijnlijk nog wat veranderen')
 // Doe een fetch naar de data die je nodig hebt
 // const apiResponse = await fetch('...')
@@ -90,11 +89,15 @@ app.get('/sort=:filter', async function (request, response) {
   let filter = request.params.filter;
   let stories;
 
-  if (filter == "alphabetical") {
-    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=title");
-  } else if (filter == "playtime") {
-    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=playtime");
+  switch (filter) {
+    case "alphabetical":
+      stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=title");
+      break;
+    case "playtime":
+      stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=playtime");
+      break;
   }
+  
   // if (season) {
   //   stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[season][_eq]=" + season);
   // } else if (language) {
@@ -112,8 +115,6 @@ app.get('/sort=:filter', async function (request, response) {
   let seasonsJSON = await seasons.json();
   let languagesJSON = await languages.json();
   let animalsJSON = await animals.json();
-
-  console.log(storiesJSON);
 
   response.render('index.liquid', {
     stories: storiesJSON.data,
