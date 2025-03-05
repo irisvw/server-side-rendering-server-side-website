@@ -28,6 +28,7 @@
 
   <button>Sorting</button>
   <ul class="options">
+    <li><a href="/">Default</a></li>
     <li><a href="/sort=alphabetical">Alphabetical</a></li>
     <li><a href="/sort=playtime">Playtime</a></li>
   </ul>
@@ -35,19 +36,26 @@
 
 <ul class="stories">
   {% for story in stories %}
+  {% assign language = languages | find: "id", story.language %}
   <li>
+    <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}" alt="">
     <h2>{{ story.title }}</h2>
-    <p>Summary: {{ story.summary }}</p>
-    <p>Season: {{ story.season }}</p>
-    <p>Playtime: {{ story.playtime }} </p>
-    <p>Animal: {{ story.animal }} </p>
+    <p class="summary">{{ story.summary }}</p>
 
-    {% assign language = languages | find: "id", story.language %}
-    <p>Language: {{ language.language }}</p>
+    <div class="playtime">
+      <button class="button-image"><img src="assets/play.svg" alt=""></button>
+      <p>{{ story.playtime }}</p>
+    </div>
 
-    {% assign season = seasons | find: "id", story.season %}
-    <p>Season: {{ season.season }}</p>
+    <span class="lang {{ language.language | downcase }}">{{ language.language }}</span>
 
+    <div class="buttons">
+      <button class="button-image"><img src="assets/download.svg" alt=""></button>
+      <button class="button-image"><img src="assets/times-circle.svg" class="button-add" alt=""></button>
+    </div>
+
+    {% comment %} {% assign season = seasons | find: "id", story.season %}
+    <p>Season: {{ season.season }}</p> {% endcomment %}
   </li>
   {% endfor %}
 </ul>

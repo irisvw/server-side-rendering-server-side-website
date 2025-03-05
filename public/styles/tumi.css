@@ -1,0 +1,38 @@
+:root {
+  /* Kleuren per scherm */ 
+  --background-method: linear-gradient(to bottom, #471871, #142151);
+  --background-statistics: linear-gradient(to bottom, #219B9B, #1B7070);
+  --background-testing: linear-gradient(to bottom, #21599B, #1B3D70);
+  --background-profile: linear-gradient(to bottom, #F0775D, #B45751);
+
+  /* Menu knoppen kleuren */
+
+  /* Methode kleuren */
+  
+  --background-home: linear-gradient(to bottom, #3F93B7, #1C5872);
+  --background-story-night: linear-gradient(to bottom, #040404, #471871);
+
+  /* Menu overlay */
+
+  /* Knoppen */
+}
+
+.header-l {
+
+}
+
+.header-m {
+
+}
+
+.header-s {
+
+}
+
+.story-title {
+
+}
+
+.story-description {
+
+}
