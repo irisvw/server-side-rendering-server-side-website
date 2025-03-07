@@ -5,13 +5,21 @@
 }
 
 body {
+  min-height: 100vh;
   margin: 1rem;
   font-family: 'poppins';
-  background-color: #451870;
+  background: var(--background-method);
+}
+
+main {
+  max-width: 600px;
+  margin: auto;
 }
 
 h1 {
   color: white;
+  margin: 1rem auto;
+  width: max-content;
 }
 
 h2 {
@@ -21,6 +29,26 @@ h2 {
 .filters {
   display: flex;
   flex-direction: row;
+  gap: 1em;
+}
+
+.menu-filter {
+  background-color: #8654F3;
+  padding: .5em 1em;
+  border-radius: 5px;
+
+  button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-family: 'poppins';
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .options li {
@@ -29,6 +57,26 @@ h2 {
   a {
     color: white;
     text-decoration: none;
+  }
+}
+
+.stories li {
+  display: grid;
+  grid-template-columns: fit-content 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  height: 8rem;
+  border-radius: 10px;
+  background-color: white;
+
+  >img {
+    grid-row: 1 / -1;
+    grid-column: 1 / 2;
+  }
+
+  h2 {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
   }
 }
 
@@ -95,5 +143,65 @@ h2 {
     .button-add {
       transform: rotateZ(45deg);
     }
+  }
+}
+
+.searchbox {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+}
+
+.searchbox label {
+	height: 2em;
+	display: grid;
+  grid-row: 1 / 2;
+	grid-column: 1 / 3;
+}
+
+.searchbox input {
+	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+	
+	appearance: none;
+  border: none;
+	border-radius: 5px;
+	background-color: white;
+	color: black;
+	padding: .8em;
+	align-self: center;
+}
+
+.searchbox span {
+	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+
+  color: rgba(0, 0, 0, 0.6);
+	transition: all .25s;
+	margin-left: .5em;
+	align-self: center;
+}
+
+.searchbox input:focus + span,
+.searchbox input:not(:placeholder-shown) + span {
+	color: rgba(0, 0, 0, 0);
+}
+
+.searchbox button {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: .5em;
+  border-left: 1px solid rgba(0, 0, 0, 0.6);
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  >img {
+    height: 1.5em;
   }
 }

@@ -1,37 +1,53 @@
 {% render 'partials/head.liquid'
   , title: 'Stories' %}
-
+  <main>
 <h1>All stories</h1>
 
 <nav>
-  <form role="search">
-    <input type="search" role="searchbox" id="search" />
-    <label for="search">Search for stories</label>
-    <button>Submit search</button>
+  <form role="search" class="searchbox">
+    <label for="search">
+      <input type="search" role="searchbox" id="search" placeholder=""/>
+      <span>Search for stories</span>
+    </label>
+    <button><img src="assets/search.svg" alt=""></button>
   </form>
+</nav>
+<nav class="filters">
+  <div class="menu-filter">
+    <button>Animal</button>
+    <ul class="options">
+      {% for animal in animals %}
+        <li><a href="/filter?animal={{ animal.id }}">{{ animal.animal |  capitalize }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
 
-  <button>Animal</button>
+  <div class="menu-filter">
+    <button>Season</button>
+    <ul class="options">
+    {% for season in seasons %}
+      <li><a href="/filter?season={{ season.id }}">{{ season.season }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
 
-  <button>Season</button>
-  <ul class="options">
-  {% for season in seasons %}
-    <li><a href="/filter?season={{ season.id }}">{{ season.season }}</a></li>
-  {% endfor %}
-  </ul>
+  <div class="menu-filter">
+    <button>Language</button>
+    <ul class="options">
+    {% for language in languages %}
+      <li><a href="/filter?language={{ language.id }}">{{ language.language }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
 
-  <button>Language</button>
-  <ul class="options">
-  {% for language in languages %}
-    <li><a href="/filter?language={{ language.id }}">{{ language.language }}</a></li>
-  {% endfor %}
-  </ul>
-
-  <button>Sorting</button>
-  <ul class="options">
-    <li><a href="/">Default</a></li>
-    <li><a href="/sort=alphabetical">Alphabetical</a></li>
-    <li><a href="/sort=playtime">Playtime</a></li>
-  </ul>
+  <div class="menu-filter">
+    <button>Sorting</button>
+    <ul class="options">
+      <li><a href="/">Default</a></li>
+      <li><a href="/sort=alphabetical">Alphabetical</a></li>
+      <li><a href="/sort=playtime">Playtime</a></li>
+    </ul>
+  </div>
 </nav>
 
 <ul class="stories">
@@ -59,5 +75,5 @@
   </li>
   {% endfor %}
 </ul>
-
+</main>
 {% render 'partials/foot.liquid' %}
