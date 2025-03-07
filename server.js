@@ -50,7 +50,7 @@ app.get('/', async function (request, response) {
     stories: storiesJSON.data,
     seasons: seasonsJSON.data,
     languages: languagesJSON.data,
-    animas: animalsJSON.data
+    animals: animalsJSON.data
   })
 })
 
@@ -81,7 +81,7 @@ app.get('/filter', async function (request, response) {
     stories: storiesJSON.data,
     seasons: seasonsJSON.data,
     languages: languagesJSON.data,
-    animas: animalsJSON.data
+    animals: animalsJSON.data
   })
 })
 
@@ -120,7 +120,7 @@ app.get('/sort=:filter', async function (request, response) {
     stories: storiesJSON.data,
     seasons: seasonsJSON.data,
     languages: languagesJSON.data,
-    animas: animalsJSON.data
+    animals: animalsJSON.data
   })
 })
 
