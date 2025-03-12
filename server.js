@@ -104,6 +104,32 @@ app.get('/sort=:order', async function (request, response) {
   })
 })
 
+app.get('/search', async function (request, response) {
+  let query = request.query.query;
+  let stories = await fetch(`${apiEndpoint}/tm_story/?filter[title][_icontains]=${query}`);
+  
+  let seasons = await fetch(`${apiEndpoint}/tm_season`);
+  let languages = await fetch(`${apiEndpoint}/tm_language`);
+  let animals = await fetch(`${apiEndpoint}/tm_animal`);
+
+  let storiesJSON = await stories.json();
+  let seasonsJSON = await seasons.json();
+  let languagesJSON = await languages.json();
+  let animalsJSON = await animals.json();
+
+  response.render('index.liquid', {
+    stories: storiesJSON.data,
+    seasons: seasonsJSON.data,
+    languages: languagesJSON.data,
+    animals: animalsJSON.data
+  })
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(404).send('<img src="https://httpcats.com/404.jpg" width=500>')
+})
+
 app.post('/', async function (request, response) {
   response.redirect(303, '/')
 })
