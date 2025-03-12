@@ -1,79 +1,101 @@
 {% render 'partials/head.liquid'
   , title: 'Stories' %}
-  <main>
-<h1>All stories</h1>
+<main>
+  <h1>All stories</h1>
 
-<nav>
-  <form role="search" class="searchbox">
-    <label for="search">
-      <input type="search" role="searchbox" id="search" placeholder=""/>
-      <span>Search for stories</span>
-    </label>
-    <button><img src="assets/search.svg" alt=""></button>
-  </form>
-</nav>
-<nav class="filters">
-  <div class="menu-filter">
-    <button>Animal</button>
-    <ul class="options">
-      {% for animal in animals %}
-        <li><a href="/filter?animal={{ animal.id }}">{{ animal.animal |  capitalize }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+  <nav>
+    <form role="search" class="searchbox" action="/search" method="get">
+      <label for="search">
+        <input
+          type="search"
+          role="searchbox"
+          id="search"
+          placeholder=""
+          name="query"
+          value="" />
+        <span>Search for stories</span>
+      </label>
+      <button type="submit"><img src="assets/search.svg" alt=""></button>
+    </form>
+  </nav>
 
-  <div class="menu-filter">
-    <button>Season</button>
-    <ul class="options">
-    {% for season in seasons %}
-      <li><a href="/filter?season={{ season.id }}">{{ season.season }}</a></li>
+  <details class="details-top-level">
+    <summary class="summary-top-level">Filters</summary>
+    <details class="menu-filter" name="story-filter">
+      <summary>Animal</summary>
+      <ul class="options">
+        {% for animal in animals %}
+          <li>
+            <a href="/filter?animal={{ animal.id }}">{{ animal.animal | capitalize }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
+
+    <details class="menu-filter" name="story-filter">
+      <summary>Season</summary>
+      <ul class="options">
+        {% for season in seasons %}
+          <li>
+            <a href="/filter?season={{ season.id }}">{{ season.season }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
+
+    <details class="menu-filter" name="story-filter">
+      <summary>Language</summary>
+      <ul class="options">
+        {% for language in languages %}
+          <li>
+            <a href="/filter?language={{ language.id }}">{{ language.language }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
+
+    <details class="menu-filter" name="story-filter">
+      <summary>Sorting</summary>
+      <ul class="options">
+        <li>
+          <a href="/">Default</a>
+        </li>
+        <li>
+          <a href="/sort=alphabetical">Alphabetical</a>
+        </li>
+        <li>
+          <a href="/sort=playtime">Playtime</a>
+        </li>
+      </ul>
+    </details>
+  </details>
+
+
+  <ul class="stories">
+    {% for story in stories %}
+      {% assign language = languages | find: "id", story.language %}
+      <li>
+        <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}" alt="">
+        <h2>{{ story.title }}</h2>
+
+        <div class="playtime">
+          <span class="lang {{ language.language | downcase }}">{{ language.language }}</span>
+          <p>{{ story.playtime }}</p>
+        </div>
+
+        <div class="buttons hidden">
+          <button class="button-image">
+            <img src="assets/download.svg" alt="">
+          </button>
+          <button class="button-image">
+            <img
+              src="assets/times-circle.svg"
+              class="button-add"
+              alt="">
+          </button>
+        </div>
+      </li>
     {% endfor %}
-    </ul>
-  </div>
-
-  <div class="menu-filter">
-    <button>Language</button>
-    <ul class="options">
-    {% for language in languages %}
-      <li><a href="/filter?language={{ language.id }}">{{ language.language }}</a></li>
-    {% endfor %}
-    </ul>
-  </div>
-
-  <div class="menu-filter">
-    <button>Sorting</button>
-    <ul class="options">
-      <li><a href="/">Default</a></li>
-      <li><a href="/sort=alphabetical">Alphabetical</a></li>
-      <li><a href="/sort=playtime">Playtime</a></li>
-    </ul>
-  </div>
-</nav>
-
-<ul class="stories">
-  {% for story in stories %}
-  {% assign language = languages | find: "id", story.language %}
-  <li>
-    <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}" alt="">
-    <h2>{{ story.title }}</h2>
-    <p class="summary">{{ story.summary }}</p>
-
-    <div class="playtime">
-      <button class="button-image"><img src="assets/play.svg" alt=""></button>
-      <p>{{ story.playtime }}</p>
-    </div>
-
-    <span class="lang {{ language.language | downcase }}">{{ language.language }}</span>
-
-    <div class="buttons">
-      <button class="button-image"><img src="assets/download.svg" alt=""></button>
-      <button class="button-image"><img src="assets/times-circle.svg" class="button-add" alt=""></button>
-    </div>
-
-    {% comment %} {% assign season = seasons | find: "id", story.season %}
-    <p>Season: {{ season.season }}</p> {% endcomment %}
-  </li>
-  {% endfor %}
-</ul>
+  </ul>
 </main>
 {% render 'partials/foot.liquid' %}
