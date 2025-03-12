@@ -8,17 +8,20 @@ const engine = new Liquid();
 app.engine('liquid', engine.express());
 app.set('views', './views');
 
+const apiEndpoint = "https://fdnd-agency.directus.app/items"
+
+// Default route
 app.get('/', async function (request, response) {
-  let stories = await fetch("https://fdnd-agency.directus.app/items/tm_story");
-  let seasons = await fetch("https://fdnd-agency.directus.app/items/tm_season");
-  let languages = await fetch("https://fdnd-agency.directus.app/items/tm_language");
-  let animals = await fetch("https://fdnd-agency.directus.app/items/tm_animal");
+  let stories = await fetch(`${apiEndpoint}/tm_story`);
+  let seasons = await fetch(`${apiEndpoint}/tm_season`);
+  let languages = await fetch(`${apiEndpoint}/tm_language`);
+  let animals = await fetch(`${apiEndpoint}/tm_animal`);
 
   let storiesJSON = await stories.json();
   let seasonsJSON = await seasons.json();
   let languagesJSON = await languages.json();
   let animalsJSON = await animals.json();
-
+  
   response.render('index.liquid', {
     stories: storiesJSON.data,
     seasons: seasonsJSON.data,
@@ -50,16 +53,16 @@ app.get('/filter', async function (request, response) {
   let stories = "";
 
   if (season) {
-    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[season][_eq]=" + season);
+    stories = await fetch(`${apiEndpoint}/tm_story/?filter[season][_eq]=` + season);
   } else if (language) {
-    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?filter[language][_eq]=" + language);
+    stories = await fetch(`${apiEndpoint}/tm_story/?filter[language][_eq]=` + language);
   } else {
-    stories = await fetch("https://fdnd-agency.directus.app/items/tm_story");
+    stories = await fetch(`${apiEndpoint}/tm_story`);
   }
 
-  let seasons = await fetch("https://fdnd-agency.directus.app/items/tm_season");
-  let languages = await fetch("https://fdnd-agency.directus.app/items/tm_language");
-  let animals = await fetch("https://fdnd-agency.directus.app/items/tm_animal");
+  let seasons = await fetch(`${apiEndpoint}/tm_season`);
+  let languages = await fetch(`${apiEndpoint}/tm_language`);
+  let animals = await fetch(`${apiEndpoint}/tm_animal`);
 
   let storiesJSON = await stories.json();
   let seasonsJSON = await seasons.json();
@@ -74,22 +77,23 @@ app.get('/filter', async function (request, response) {
   })
 })
 
+// Sort route
 app.get('/sort=:order', async function (request, response) {
   let order = request.params.order;
   let stories;
 
   switch (order) {
     case "alphabetical":
-      stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=title");
+      stories = await fetch(`${apiEndpoint}/tm_story/?sort=title`);
       break;
     case "playtime":
-      stories = await fetch("https://fdnd-agency.directus.app/items/tm_story/?sort=playtime");
+      stories = await fetch(`${apiEndpoint}/tm_story/?sort=playtime`);
       break;
   }
   
-  let seasons = await fetch("https://fdnd-agency.directus.app/items/tm_season");
-  let languages = await fetch("https://fdnd-agency.directus.app/items/tm_language");
-  let animals = await fetch("https://fdnd-agency.directus.app/items/tm_animal");
+  let seasons = await fetch(`${apiEndpoint}/tm_season`);
+  let languages = await fetch(`${apiEndpoint}/tm_language`);
+  let animals = await fetch(`${apiEndpoint}/tm_animal`);
 
   let storiesJSON = await stories.json();
   let seasonsJSON = await seasons.json();
