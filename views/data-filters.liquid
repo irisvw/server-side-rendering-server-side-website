@@ -1,0 +1,73 @@
+{% render 'partials/head.liquid'
+  , title: 'Stories' %}
+  <head>
+    <style>
+      * {
+        color: white;
+      }
+    </style>
+  </head>
+
+  <h2>Data filteren en sorteren</h2>
+<details name="experiment">
+  <summary>
+    Experiment 1:
+  </summary>
+  <p>https://fdnd.directus.app/items/person/?sort=name</p>
+</details>
+<details name="experiment">
+  <summary>
+    Experiment 2:
+  </summary>
+  <p>https://fdnd.directus.app/items/person/?fields=name&filter[name][_istarts_with]=d</p>
+</details>
+<details name="experiment">
+  <summary>
+    Experiment 3:
+  </summary>
+  <p>
+    https://fdnd.directus.app/items/person/?fields=name&filter={"_or":[{"name":{"_istarts_with":"d"}},{"name":{"_istarts_with":"k"}}]}
+    https://fdnd.directus.app/items/person/?fields=name&filter[_or][0][name][_istarts_with]=d&filter[_or][1][name][_istarts_with]=k
+  </p>
+</details>
+<details name="experiment">
+  <summary>
+    Experiment 4:
+  </summary>
+  <p>https://fdnd.directus.app/items/person/?fields=name,birthdate&filter[birthdate][_neq]=null</p>
+</details>
+<details name="experiment">
+  <summary>
+    Experiment 5:
+  </summary>
+  <p>https://fdnd.directus.app/items/person/?fields=name,birthdate&filter[year(birthdate)][_eq]=2002</p>
+</details>
+<details name="experiment">
+  <summary>
+    Experiment 6:
+  </summary>
+  <p>https://fdnd.directus.app/items/person/?fields=fav_tag&filter[fav_tag][_neq]=null&groupBy[]=fav_tag&aggregate[count]=*&sort=-count</p>
+</details>
+
+<h2>Template filters in Liquid</h2>
+<h3>Liquid filters onderzoeken</h3>
+<h4>Where</h4>
+All people:
+<ul>
+{% for person in persons %}
+<li>{{ person.name }}</li>
+{% endfor %}
+</ul>
+
+<br>
+<br>
+
+{% assign gamers = persons | where: "fav_hobby", "Fitness" %}
+
+Gamers:
+<ul>
+{% for gamer in gamers %}
+  <li>{{ gamer.name }}</li>
+{% endfor %}
+</ul>
+<h3>For loop experimenten</h3>
