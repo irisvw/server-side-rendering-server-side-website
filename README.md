@@ -24,7 +24,11 @@
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met Javascript gedaan en hoe? Misschien heb je een framwork of library gebruikt? -->
 
 ## Installatie
-<!-- Bij Instalatie staat hoe een andere developer aan jouw repo kan werken -->
+1. Navigeer naar nodejs.org en installeer de NodeJS ontwikkelomgeving. Kies voor NodeJS 22.13.1 with long-term support, download de benodigde bestanden en doorloop het installatieproces.
+2. Fork daarna deze repository en clone deze op jouw computer.
+3. Open deze repository in je editor, bijvoorbeeld VS code.
+4. Voer in de terminal het commando `npm install` uit
+5. Start de site op door in de terminal het commando `npm start` uit te voeren.
 
 ## Bronnen
 
